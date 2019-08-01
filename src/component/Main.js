@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
  function Main ({Cars,nameFilter,stockFilter}) {
   const carsTodisplay=(Cars,nameFilter, stockFilter)=>{
      return Cars.filter(
-       el=>el.name.toLowerCase().includes(nameFilter.toLowerCase())
+       el=>el.name.toLowerCase().includes(nameFilter.toLowerCase().trim())
        &&
        (stockFilter!=='all' ?
         el.stock.toLowerCase()===stockFilter.toLowerCase() :
@@ -19,12 +19,12 @@ import {connect} from 'react-redux'
     <div className="row">
       {
         carsTodisplay(Cars,nameFilter,stockFilter).map (el => (
-        <div class="card" style={{width: '300px', marginTop: '50px'}}>
+        <div class="card" style={{width: '300px', marginTop: '100px', marginLeft:"20px"}}>
           <div class="card-body">
             <img
               class="image-bottom"
               src={el.image}
-              alt="Card example image"
+              alt=""
             />
 
             <h4 class="card-title">{el.name} </h4>

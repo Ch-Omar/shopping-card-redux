@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {SearchByName,SearchByStock} from '../redux/action/action'
+import {Link} from 'react-router-dom'
+
 
 function Navbar ({SearchByName=()=>{},SearchByStock}) {
   return (
     <div>
       <nav className="border fixed">
         <div className="nav-brand sm-3">
-          <h4><a link="#">Shopping Card</a></h4>
+          <h4><Link to="/" style={{textDecoration: "none"}}>Shopping Card</Link></h4>
 
         </div>
         <div className="collapsible sm-9 row flex-spaces">
@@ -72,7 +74,7 @@ function Navbar ({SearchByName=()=>{},SearchByStock}) {
               <span class="card-subtitle">All</span>
             </label>
 
-            <li><div><a link="#">Shop</a></div></li>
+            <li><Link to='/shop'  style={{textDecoration: "none"}}>Shop</Link></li>
       </ul>          </div>
 
         </div>
