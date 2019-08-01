@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
             addList.map((el,i)=>
             <div>
                 <span>{i} </span>
-                <img src={el.image} alt='' style={{width:'20px'}} />
+                <img src={el.image} alt='' style={{width:'50px'}} />
                 <button>+</button>
                 <span>0</span>
                 <button>-</button>
