@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux'
-
- 
- function Main ({Cars,nameFilter,stockFilter}) {
+import {Add} from '../redux/action/action'
+ function Main ({Cars,nameFilter,stockFilter,addCar}) {
   const carsTodisplay=(Cars,nameFilter, stockFilter)=>{
      return Cars.filter(
-       el=>el.name.toLowerCase().includes(nameFilter.toLowerCase())
+       el=>el.name.toLowerCase().includes(nameFilter.toLowerCase().trim())
        &&
        (stockFilter!=='all' ?
         el.stock.toLowerCase()===stockFilter.toLowerCase() :
@@ -18,8 +17,8 @@ import {connect} from 'react-redux'
   return (
     <div className="row">
       {
-        carsTodisplay(Cars,nameFilter,stockFilter).map (el => (
-        <div class="card" style={{width: '300px', marginTop: '50px'}}>
+        carsTodisplay(Cars,nameFilter,stockFilter).map ((el,i) => (
+        <div class="card" style={{width: '300px', marginTop: '50px'}} key={i} >
           <div class="card-body">
             <img
               class="image-bottom"
@@ -31,7 +30,7 @@ import {connect} from 'react-redux'
             <h5 class="card-subtitle">{el.stock}.</h5>
             <p class="card-text">price {el.price}$.</p>
 
-            <button>Add!</button>
+            <button onClick={()=>addCar(i)}>Add!</button>
           </div>
         </div>
       ))}
@@ -47,4 +46,9 @@ return {
 }
 
 }
-export default connect(MapStateToProps)(Main)
+const MapDispatchToProps=(dispatch)=>{
+  return {
+    addCar:(x)=>dispatch(Add(x))
+  }
+}
+export default connect(MapStateToProps,MapDispatchToProps)(Main)

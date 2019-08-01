@@ -1,4 +1,4 @@
-import {searchByName,searchByStock} from './actionType'
+import {searchByName,searchByStock,add} from './actionType'
  export const SearchByName=(payload)=>{
 return{
     type:searchByName,
@@ -8,6 +8,12 @@ return{
 export const SearchByStock=(payload)=>{
     return{
         type:searchByStock,
+        payload
+    }
+}
+export const Add =(payload)=>{
+    return{
+        type:add,
         payload
     }
 }
