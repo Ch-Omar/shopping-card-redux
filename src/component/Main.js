@@ -1,25 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux'
 
-const Bugatti = {
-  name: 'Bugatti',
-  image: 'https://www.challenges.fr/assets/img/2018/08/27/cover-r4x3w1000-5b84072224873-pbc18-conference-09-jpg.jpg',
-  price: '50',
-  stock: 'In Stock',
-};
+ 
+ function Main ({Cars,nameFilter,stockFilter}) {
+  const carsTodisplay=(Cars,nameFilter, stockFilter)=>{
+     return Cars.filter(
+       el=>el.name.toLowerCase().includes(nameFilter.toLowerCase())
+       &&
+       (stockFilter!=='all' ?
+        el.stock.toLowerCase()===stockFilter.toLowerCase() :
+        el.stock.includes(''))
+       )
+      
+  }
 
-const Camaro = {
-    name: 'Camaro',
-    image: 'https://www.tapeciarnia.pl/tapety/normalne/235359_chevrolet_camaro_zolty.jpg',
-    price: '150',
-    stock: 'In Stock',
-  };
 
-const Cars = [Bugatti,Camaro];
-
-export default function Main () {
   return (
-    <div class="row">
-      {Cars.map (el => (
+    <div className="row">
+      {
+        carsTodisplay(Cars,nameFilter,stockFilter).map (el => (
         <div class="card" style={{width: '300px', marginTop: '50px'}}>
           <div class="card-body">
             <img
@@ -40,3 +39,12 @@ export default function Main () {
     </div>
   );
 }
+const MapStateToProps=(state)=>{
+return {
+  Cars:state.cars,
+  nameFilter:state.nameFilter,
+  stockFilter:state.stockFilter
+}
+
+}
+export default connect(MapStateToProps)(Main)

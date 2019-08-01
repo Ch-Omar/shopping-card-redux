@@ -1,6 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import {SearchByName,SearchByStock} from '../redux/action/action'
 
-export default function navbar () {
+function Navbar ({SearchByName=()=>{},SearchByStock}) {
   return (
     <div>
       <nav className="border fixed">
@@ -28,38 +30,44 @@ export default function navbar () {
                   placeholder="search"
                   type="text"
                   id="paperInputs3"
-                 
+                  onChange={
+                    (e)=>SearchByName(e.target.value)}
                 />
               </li>
-              <label for="paperRadios1" class="paper-radio">
+              <label for="in stock" class="paper-radio">
               <input
                 style={{display: 'inline'}}
                 type="radio"
                 name="paperRadios"
-                id="paperRadios1"
+                id="in stock"
                 value="option 1"
+                onChange={(e)=>SearchByStock(e.target.id)}
+                
               />
 
               <span> IN STOCK </span>
             </label>
-            <label for="paperRadios2" class="paper-radio">
+            <label for="not in stock" class="paper-radio">
               <input
                 style={{display: 'inline'}}
                 type="radio"
                 name="paperRadios"
-                id="paperRadios2"
+                id="not in stock"
                 value="option 2"
+                onChange={(e)=>SearchByStock(e.target.id)}
               />
               <span class="card-subtitle">NOT IN STOCK</span>
             </label>
-            <label for="paperRadios3" class="paper-radio">
+            <label for="all" class="paper-radio">
 
               <input
                 style={{display: 'inline'}}
                 type="radio"
                 name="paperRadios"
-                id="paperRadios3"
+                id="all"
                 value="option 3"
+                onChange={(e)=>SearchByStock(e.target.id)}
+                
               />
               <span class="card-subtitle">All</span>
             </label>
@@ -72,3 +80,18 @@ export default function navbar () {
     </div>
   );
 }
+
+const mapsStateToProps=(state)=>{
+  return {
+    name:state.nameFilter
+  }
+}
+const mapDispatchToProps=(dispatch)=>{
+  
+  return {
+    SearchByName:(x)=>dispatch(SearchByName(x)),
+    SearchByStock:(x)=>dispatch(SearchByStock(x))
+    
+  }
+}
+export default connect(mapsStateToProps,mapDispatchToProps)(Navbar)
